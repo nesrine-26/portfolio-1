@@ -19,7 +19,17 @@ const Section2 = async () => {
   const data: ExperienceProps[] = section2[0].experienceList;
 
   return (
-    <div className="grid md:grid-cols-12 grid-cols-1 my-10 gap-8 mx-4 md:max-w-7xl md:mx-auto ">
+    <div className=" mx-4 md:max-w-7xl md:mx-auto ">
+      <div className="mt-28">
+        <div className="text-secondary text-5xl  font-black">Work did in</div>
+ <h3 className="text-7xl  font-bold text-secondary ">
+        
+                {data[0].workPeriod}
+              </h3>
+      </div>
+     
+      <div className="grid md:grid-cols-12 grid-cols-1 my-10 gap-8">
+        
       {data.map((item, index) => {
         if (index === 0) {
           return (
@@ -27,9 +37,7 @@ const Section2 = async () => {
               key={index}
               className="md:col-span-6 bg-black text-white p-8 rounded-lg"
             >
-              <button className="border px-2 rounded-lg">
-                {item.workPeriod}
-              </button>
+            
 
               <h3 className="text-[clamp(42px,6vw,72px)] font-semibold mt-3">
                 {item.role}
@@ -68,6 +76,8 @@ const Section2 = async () => {
           </div>
         );
       })}
+      </div>
+        
     </div>
   );
 };

@@ -104,7 +104,7 @@ const Hero = async () => {
             alt=" profile photo"
             width={50}
             height={50}
-            className="rounded-full w-10 h-10  "
+            className="rounded-full w-10 h-10 object-cover  "
           />
           <div>
             <h3 className="font-bold ">{data.reviewAuthor}</h3>
