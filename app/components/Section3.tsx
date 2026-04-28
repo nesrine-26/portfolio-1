@@ -35,19 +35,19 @@ const Section3 = async () => {
 
         {/* heading */}
         <div className="mt-6 max-w-5xl">
-          <h2 className="text-[clamp(36px,6vw,72px)] max-w-[93%] leading-tight font-medium">
+          <h2 className="text-[clamp(36px,6vw,72px)] max-w-[93%] leading-tight font-medium tracking-tighter">
             {section3[0].quote}
           </h2>
         </div>
 
         {/* cards grid */}
-        <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 max-w-5xl my-10">
+        <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 max-w-4xl my-10">
           {data?.map((project, index) => (
             <div
               key={index}
               className="h-full p-4 border rounded-lg bg-white shadow-sm"
             >
-              <h3 className="text-2xl font-bold px-2 py-1 mb-2">
+              <h3 className="text-2xl font-bold px-2 py-1 mb-2 ">
                 {project.projectTitle}
               </h3>
 

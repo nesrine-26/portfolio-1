@@ -15,7 +15,7 @@ const Header = () => {
       <div className="sticky top-0  flex justify-between max-w-7xl mx-auto items-center p-4 md:p-0 md:py-4 ">
         {/*logo*/}
         <div className="font-bold text-2xl" style={{ fontFamily: "outfit" }}>
-          <a href="/">ida.</a>
+          <a href="/">Nessrine</a>
         </div>
         {/*navItems _ Desktop*/}
         <div className="hidden lg:flex justify-center items-center gap-4 ">

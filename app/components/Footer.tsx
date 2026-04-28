@@ -39,7 +39,7 @@ const Footer = async() => {
             className="font-bold text-2xl sm:text-3xl"
             style={{ fontFamily: "outfit" }}
           >
-            <a href="/">ida.</a>
+            <a href="/">Nessrine</a>
           </div>
 
           {/* quote */}
