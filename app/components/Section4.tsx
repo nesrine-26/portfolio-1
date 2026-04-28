@@ -1,27 +1,39 @@
 import Image from "next/image";
+import client from '@/lib/sanity';
+import { SECTION4_QUERY } from "@/lib/sanity.queries";
+import  ImageUrlBuilder  from "@sanity/image-url";
+import { Hero_QUERY } from "@/lib/sanity.queries";
+const builder = ImageUrlBuilder(client)
+function urlFor(source:string){
+  return builder.image(source)
+}
 
-const testimonials = [1, 2, 3];
+type TestimonialsProps = {
+  review: string;
+  authorImage: string;
+}
+const Section4 = async() => {
+const hero = await client.fetch(Hero_QUERY);
+  const data = hero[0];
+  const section4 = await  client.fetch(SECTION4_QUERY)
+  const testimonials:TestimonialsProps[] = section4[0].testimonials
 
-const Section4 = () => {
   return (
     <section>
       {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {testimonials.map((item) => (
+        {testimonials?.map((item, index) => (
           <div
-            key={item}
+            key={index}
             className="bg-background p-6 sm:p-8 rounded-lg shadow-sm"
           >
             <p className="text-sm sm:text-base leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-              corrupti fugiat animi asperiores laboriosam magni delectus? Aut
-              sapiente rerum laudantium placeat, animi recusandae. Esse
-              explicabo aliquam nobis inventore animi quae.
+              {item.review}
             </p>
 
             <div className="py-4 flex items-center gap-3">
               <Image
-                src="/hero.png"
+                src={urlFor(item.authorImage).url()}
                 alt="profile photo"
                 width={50}
                 height={50}
@@ -47,12 +59,12 @@ const Section4 = () => {
           </h2>
 
           <button className="border px-5 py-2 rounded-sm bg-background text-secondary shadow-[6px_6px] hover:translate-x-1 hover:translate-y-1 transition">
-            Connect Now
+          <a href= {`mailto:${data.email}`}></a>  Connect Now
           </button>
         </div>
 
         <h2 className="mt-10 text-background text-[clamp(50px,14vw,200px)] font-semibold text-center leading-none">
-          Let&apos;s Talk
+          <a href={`emailto: ${data.email}`}> Let&apos;s Talk</a>  
         </h2>
       </div>
     </section>

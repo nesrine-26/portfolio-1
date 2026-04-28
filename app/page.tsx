@@ -8,26 +8,16 @@ import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen h-screen  flex flex-col ">
-      <div className="">
-        <Header />
-      </div>
+    <div className="relative min-h-screen flex flex-col">
+      <Header />
 
-      <div className="flex-1 md:px-8">
+      <main className="flex-1 md:px-8">
         <Hero />
-      </div>
-      <div className="">
         <Section2 />
-      </div>
-      <div>
         <Section3 />
-      </div>
-      <div>
-        <Section4 />
-      </div>
-      <div>
-        <Footer />
-      </div>
+      </main>
+      <Section4 />
+      <Footer />
     </div>
   );
 }

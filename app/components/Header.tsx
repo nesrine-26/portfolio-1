@@ -1,18 +1,18 @@
 "use client";
-import { Menu, Rose, Search, X } from "lucide-react";
-import React, { useState } from "react";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navItems = [
     { name: "Home", link: "/" },
-    { name: "About", link: "#About" },
-    { name: "Services", link: "#Services" },
-    { name: "Contact", link: "#Contact" },
+    { name: "My work", link: "#myWork" },
+    { name: "projects", link: "#projects" },
+    { name: "Contact", link: "#contact" },
   ];
   return (
-    <header className="">
-      <div className="flex justify-between max-w-7xl mx-auto items-center p-4 md:py-4 ">
+    <header className="relative bg-background opacity-70 backdrop-blur-3xl md:px-10 px-0">
+      <div className="sticky top-0  flex justify-between max-w-7xl mx-auto items-center p-4 md:p-0 md:py-4 ">
         {/*logo*/}
         <div className="font-bold text-2xl" style={{ fontFamily: "outfit" }}>
           <a href="/">ida.</a>
@@ -20,7 +20,10 @@ const Header = () => {
         {/*navItems _ Desktop*/}
         <div className="hidden lg:flex justify-center items-center gap-4 ">
           {navItems.map((nav) => (
-            <nav key={nav.name}>
+            <nav
+              key={nav.name}
+              className="border bg-background border-secondary px-3 py-1  rounded-sm  hover:bg-secondary hover:text-background"
+            >
               <a href={nav.link}>{nav.name} </a>
             </nav>
           ))}

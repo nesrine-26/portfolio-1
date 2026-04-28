@@ -1,40 +1,74 @@
-import { Mail } from "lucide-react";
 import Image from "next/image";
-import { FaInstagram, FaFacebook, FaTelegram } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaFacebook,
+  FaTelegram,
+  FaGlobe,
+  FaTwitter,
+} from "react-icons/fa";
+import { Hero_QUERY } from "@/lib/sanity.queries";
+import client from "@/lib/sanity";
+import imageUrlBuilder from "@sanity/image-url";
 import { SiGmail } from "react-icons/si";
+import Link from "next/link";
 
-const Hero = () => {
+const builder = imageUrlBuilder(client);
+
+function urlFor(source: string) {
+  return builder.image(source);
+}
+
+const socialIcons = {
+  instagram: FaInstagram,
+  facebook: FaFacebook,
+  telegram: FaTelegram,
+  twitter: FaTwitter,
+  tweeter: FaTwitter,
+  x: FaTwitter,
+};
+
+const Hero = async () => {
+  const hero = await client.fetch(Hero_QUERY);
+  const data = hero[0];
   return (
-    <div className="  max-w-7xl mx-auto p-4 md:p-0">
-      <div className="flex md:flex-row flex-col justify-center items-center ">
+    <div className="max-w-7xl mx-auto p-4 md:p-0">
+      <div className="flex md:flex-row flex-col justify-center items-center">
         {/* Left */}
-        <div className="md:w-1/2  md:pr-10 ">
+        <div className="md:w-1/2 md:pr-10">
           <h1 className="text-7xl font-bold text-[clamp(48px,6vw,72px)]">
-            I do - design <br />
-            <span>develop & launch</span>
+            {data.title}
           </h1>
-          <p className="py-6 ">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure unde
-            porro neque consequatur, provident ea quas vero placeat, illo dolor
-            illum dolore. Sunt quas necessitatibus voluptatibus, illum earum
-            molestias nihil.
-          </p>
-          <div className="pb-6 flex items-center justify-between md:w-3/4 w-full">
+
+          <p className="py-6">{data.description}</p>
+
+          <div className="flex gap-3 justify-between items-center mb-5">
             <button className="bg-black border text-white flex items-center px-2 rounded-lg border-white ">
               Connect
-              <span className="bg-white text-black rounded-sm m-2 ">
+              <a href={`mailto:${data.email}`} className="cursor-pointer bg-white p-1 text-black rounded-sm m-2 ">
                 <SiGmail />
-              </span>
+              </a>
             </button>
             <div>OR</div>
-            <div className="flex gap-3  ">
-              <FaInstagram
-                size={30}
-                color="#000"
-                className="bg-background p-2 rounded-sm "
-              />
-              <FaFacebook size={30} className="bg-background p-2 rounded-sm " />
-              <FaTelegram size={30} className="bg-background p-2 rounded-sm " />
+            <div className="flex gap-3 flex-wrap ">
+              {data?.socials?.map(
+                (social: { name: string; url: string }, index: number) => {
+                  const key = social.name.toLowerCase();
+                  const Icon =
+                    socialIcons[key as keyof typeof socialIcons] || FaGlobe;
+
+                  return (
+                    <a
+                      key={index}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border bg-background border-secondary p-2 rounded-sm"
+                    >
+                      <Icon size={24} />
+                    </a>
+                  );
+                },
+              )}
             </div>
           </div>
         </div>
@@ -42,43 +76,40 @@ const Hero = () => {
         {/* Right */}
         <div className="md:w-1/2 w-full h-[calc(100dvh-64px)] ">
           <Image
-            src="/hero.png"
-            alt=""
+            src={urlFor(data.heroImage).url()}
+            alt="Hero image"
             width={1000}
             height={1000}
             className="w-full h-full object-cover"
           />
         </div>
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-6">
         <div>
-          <button className="p-2  my-6 rounded-sm font-bold ">
+          <button className="p-2   rounded-sm font-bold ">
             Recent Review
           </button>
         </div>
-        <div className="bg-background  px-2 py-1 text-secondary rounded-lg">
+        <Link href={data.reviewLink} className="bg-background  px-2 py-1 text-secondary rounded-lg">
           See More
-        </div>
+        </Link>
       </div>
       <div className="bg-background p-8 rounded-lg">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-          corrupti fugiat animi asperiores laboriosam magni delectus? Aut
-          sapiente rerum laudantium placeat, animi recusandae. Esse explicabo
-          aliquam nobis inventore animi quae.
+          {data.review}
         </p>
         <div className="py-3 flex items-center gap-3">
           <Image
-            src="/hero.png"
+            src={urlFor(data?.authorImage).url()}
             alt=" profile photo"
             width={50}
             height={50}
             className="rounded-full w-10 h-10  "
           />
           <div>
-            <h3 className="font-bold ">Author Name</h3>
+            <h3 className="font-bold ">{data.reviewAuthor}</h3>
             <span className="italic text-sm  text-secondary">
-              Author Profession
+              {data.authorProfession}
             </span>
           </div>
         </div>
